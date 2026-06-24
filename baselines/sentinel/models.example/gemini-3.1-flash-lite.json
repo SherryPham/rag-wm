@@ -1,7 +1,0 @@
-{
-    "llm_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
-    "api_key": "${GEMINI_API_KEY}",
-    "model": "gemini-3.1-flash-lite",
-    "llm_arg": {
-    }
-}

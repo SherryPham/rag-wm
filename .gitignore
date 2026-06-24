@@ -1,4 +1,3 @@
-
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -31,19 +30,3 @@ rag_status.txt
 **/chromadb_db/
 **/embeddings/
 **/output/
-baselines/ward/out/
-
-eval/results/
-
-baselines/sentinel/models/*
-!baselines/sentinel/models/qwen2.5.json
-
-baselines/ward/src/models/psp/STS
-baselines/ward/src/models/psp/paraphrase-at-scale
-baselines/ward/src/models/psp/paraphrase-at-scale-english
-baselines/ward/src/models/psp/model.para.lc.100.pt
-
-!baselines/sentinel/src/sentinelrag/vendor/contriever_src/
-!baselines/sentinel/src/sentinelrag/vendor/contriever_src/**
-
-baselines/ward/farad/

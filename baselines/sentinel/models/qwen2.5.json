@@ -1,7 +1,0 @@
-{
-  "preset_name": "qwen2.5",
-  "llm_url": "http://localhost:11434/v1",
-  "api_key": "ollama",
-  "model": "qwen2.5:3b",
-  "llm_arg": {"temperature": 0}
-}
