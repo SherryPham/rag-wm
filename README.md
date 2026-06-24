@@ -1,26 +1,11 @@
 # Watermark Survival Under Extraction Attack
 
-Comparing how many **RAG-corpus watermark signals survive an extraction attack** across three
+Comparing RAG corpus watermark signals survive rate against an extraction attack across three
 watermarking schemes — **WARD**, **RAG-WM**, and **SentinelRAG**.
 
 
 ---
 
-## Repository layout
-
-```
-baselines/
-  ward/        WARD  — KGW token-level LLM watermark, RAG dataset inference (ICLR'25)
-  ragwm/       RAG-WM — entity-graph "watermark units" injected into the corpus
-  sentinel/    SentinelRAG — synthetic "sentinel" knowledge objects about fictitious entities
-adversaries/
-  naive-extraction/   
-    schema.py            
-    sentinel_extract.py  } 
-    ragwm_extract.py     }
-    ward_extract.py      }
-  rag-crawler/                                  
-```
 
 
 ## The three baselines
