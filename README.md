@@ -38,6 +38,18 @@ WARD:
 }
 ```
 
+RAG-WM:
+```bibtex
+@inproceedings{lv2025ragwm,
+    author    = {Lv, Peizhuo and Sun, Mengjie and Wang, Hao and Wang, Xiaofeng and Zhang, Shengzhi and Chen, Yuxuan and Chen, Kai and Sun, Limin},
+    title     = {RAG-WM: An Efficient Black-Box Watermarking Approach for Retrieval-Augmented Generation of Large Language Models},
+    booktitle = {Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security (CCS '25)},
+    year      = {2025},
+    doi       = {10.1145/3719027.3744813},
+    url       = {https://dl.acm.org/doi/epdf/10.1145/3719027.3744813}
+}
+```
+
 SentinelRAG:
 ```bibtex
 @misc{kwok2026sentinelrag,
