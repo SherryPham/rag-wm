@@ -1,0 +1,8 @@
+name: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B'
+use_fp16: True       # set to False if running on CPU
+use_flashattn2: False
+prompt_max_len: 8192
+response_max_len: 2048   # R1-Distill is a reasoning model and needs room for <think> + answer
+n_beams: 1
+use_sampling: True
+sampling_temp: 0.6       # DeepSeek's recommended temperature for R1 models

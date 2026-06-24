@@ -1,0 +1,62 @@
+[project]
+name = "watermarks-eval"
+version = "0.1.0"
+description = "Single unified environment for the watermark extraction-attack comparison (WARD + RAG-WM + SentinelRAG)."
+readme = "README.md"
+requires-python = ">=3.12"
+
+# Reconciled union of the three baselines' dependencies. Where the originals conflicted
+# we pin a version that satisfies all three:
+#   - transformers <5  (RAG-WM) and >=4.36 (WARD)        -> 4.4x
+#   - chromadb ==0.5.20 (RAG-WM hard pin; SentinelRAG unpinned)
+#   - numpy <2          (RAG-WM 1.26 / SentinelRAG)
+# SentinelRAG is installed editable (below) so its `sentinelrag-*` console scripts work.
+dependencies = [
+    # --- core ML / RAG (shared) ---
+    "torch>=2.7.0",
+    "transformers>=4.41,<5",
+    "numpy<2",
+    "scipy>=1.11",
+    "sentence-transformers>=3.4.1",
+    "tokenizers",
+    "accelerate>=0.26.0",
+    "datasets>=3.2.0",
+    "beir",
+    "chromadb==0.5.20",
+    "pandas",
+    "pyarrow",
+    "tqdm",
+    "pyyaml",
+    "python-dotenv",
+    # --- LLM clients (WARD imports anthropic/together/openai at module load) ---
+    "openai>=1.59.5",
+    "anthropic>=0.42.0",
+    "together>=1.4.1",
+    # --- WARD specifics ---
+    "pydantic>=2.10.4",
+    "pymilvus>=2.5.4",
+    "sentencepiece>=0.2.0",
+    "sacremoses>=0.1.1",
+    "antlr4-python3-runtime==4.11",
+    "matplotlib>=3.8",
+    # --- RAG-WM entity extraction ---
+    "langchain-experimental",
+    "langchain-openai",
+    # --- SentinelRAG (editable; provides the sentinelrag package + CLIs) ---
+    "sentinelrag",
+]
+
+[tool.uv]
+# This repo root is just an environment, not an installable package.
+package = false
+
+# torch from the CUDA 12.8 wheels (NVIDIA Blackwell / sm_120). `explicit = true`
+# means ONLY torch is pulled from this index; everything else comes from PyPI.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+sentinelrag = { path = "baselines/sentinel", editable = true }
