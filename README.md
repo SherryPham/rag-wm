@@ -183,5 +183,4 @@ SentinelRAG:
 }
 ```
 
-RAG-WM: the original `baselines/ragwm` repository ships no citation file; cite the RAG-WM
-("watermark unit") scheme per its upstream source.
+
