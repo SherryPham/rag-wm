@@ -21,8 +21,8 @@ if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
 from baselines.ward.kgw import WatermarkDetector, WatermarkLogitsProcessor
-from run.scheme import Signal, WatermarkScheme
-from run.llm import OllamaLLM
+from evaluation.scheme import Signal, WatermarkScheme
+from evaluation.llm import OllamaLLM
 
 PARAPHRASER_PROMPT = (
     "You are an expert rewriter. Rewrite the following document keeping its meaning and "

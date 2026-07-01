@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 import random
 
-from run.llm import OllamaLLM
-from run.scheme import Signal, WatermarkScheme
+from evaluation.llm import OllamaLLM
+from evaluation.scheme import Signal, WatermarkScheme
 
 ABSTRACT_TO_KO = """
 Please extract core, key entities and relationships from the following long text and organize them into a logically clear JSON object. The basic unit is (entity, relationship, entity), which is a triplet.

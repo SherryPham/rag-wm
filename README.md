@@ -26,6 +26,33 @@ watermarking schemes — **WARD**, **RAG-WM**, and **SentinelRAG**.
 
 
 
+## Running the evaluation
+
+**Setup — Windows **
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+ollama pull qwen2.5:3b            # LLM: victim / adversary / judge
+```
+
+**Setup — macOS / Linux **
+```bash
+python3 -m venv .venv            
+source .venv/bin/activate
+pip install -r requirements.txt
+ollama pull qwen2.5:3b            
+```
+
+**Running watermark survival rate evaluation** 
+```bash
+python evaluation/survive_rate.py --n 50                     
+```
+`--n` = watermark signals per scheme. Results are written to
+`evaluation/results/{ward,ragwm,sentinel}.json` 
+
+
+
 ## Citations
 
 WARD:

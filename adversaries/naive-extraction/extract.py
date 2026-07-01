@@ -20,9 +20,9 @@ _REPO = _repo_root(_THIS)
 if _REPO not in sys.path:
     sys.path.insert(0, _REPO)
 
-from run.pipeline import RagPipeline
-from run.datasets import load_corpus, sample_background
-from run.schema import SchemeResult, SignalResult
+from evaluation.pipeline import RagPipeline
+from evaluation.datasets import load_corpus, sample_background
+from evaluation.schema import SchemeResult, SignalResult
 
 SCHEME_CLASSES = {
     "ward": ("baselines.ward.watermark", "WardWatermark"),
@@ -86,7 +86,7 @@ def main():
     ap.add_argument("--top_k", type=int, default=5)
     ap.add_argument("--dataset", default="nfcorpus")
     ap.add_argument("--model", default=os.environ.get("OLLAMA_MODEL", "qwen2.5:3b"))
-    ap.add_argument("--results-dir", default=os.path.join(_REPO, "results"))
+    ap.add_argument("--results-dir", default=os.path.join(_REPO, "evaluation", "results"))
     args = ap.parse_args()
 
     os.makedirs(args.results_dir, exist_ok=True)

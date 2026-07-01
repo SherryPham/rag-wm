@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 import re
 
-from run.llm import OllamaLLM
-from run.scheme import Signal, WatermarkScheme
+from evaluation.llm import OllamaLLM
+from evaluation.scheme import Signal, WatermarkScheme
 
 WATERMARK_GENERATE = """
 You are a knowledge graph expert and a linguist. Your task is to generate {K} distinct natural language sentences that describe a given relationship (R1) between two entities (E1 and E2) in a knowledge graph. Each sentence should convey the relationship between (E1) and (E2) using a unique syntactic structure to ensure variation, while maintaining clarity and readability.

@@ -1,22 +1,9 @@
-# Unified environment for the watermark-success comparison (all 3 schemes + shared pipeline).
-# NOTE (Blackwell / RTX PRO 4000, sm_120): install the cu128 torch build FIRST, e.g.
-#   pip install torch --index-url https://download.pytorch.org/whl/cu128
-# then: pip install -r requirements.txt
-
-# core ML (KGW watermark + contriever retriever + WARD HF rephraser)
+# Install the CUDA build of torch first (see README), then: pip install -r requirements.txt
 torch>=2.7.0
 transformers>=4.41,<5
 tokenizers
 accelerate>=0.26.0
 scipy>=1.11
-numpy<2
+numpy>=2.0
 
-# retrieval / data
-chromadb==0.5.20
-beir
-
-# local LLM client (Ollama, OpenAI-compatible) for the prompt-based schemes + RAG answers
 openai>=1.59.5
-
-# reporting
-matplotlib>=3.8

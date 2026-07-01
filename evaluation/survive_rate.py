@@ -43,7 +43,7 @@ def main():
     rc = subprocess.run(cmd, cwd=REPO).returncode
 
     if not args.no_compare:
-        print("\n=== comparison ===")
+        print("\n=== summary ===")
         subprocess.run([py, os.path.join(_THIS, "compare.py")], cwd=REPO)
     return rc
 

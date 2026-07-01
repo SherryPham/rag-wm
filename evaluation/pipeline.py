@@ -2,10 +2,7 @@ from __future__ import annotations
 
 import os
 
-os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
-
-import chromadb
-from chromadb.config import Settings
+import numpy as np
 import openai
 import torch
 from transformers import AutoModel, AutoTokenizer
@@ -54,34 +51,35 @@ class RagPipeline:
         self.embedder = embedder or Contriever()
         self.sys_prompt = sys_prompt
         self.temperature = temperature
-        self.collection = None
+        self._docs: list[str] = []
+        self._emb: np.ndarray | None = None
+
+    @staticmethod
+    def _l2_normalize(mat: np.ndarray) -> np.ndarray:
+        norms = np.linalg.norm(mat, axis=-1, keepdims=True)
+        return mat / np.clip(norms, 1e-9, None)
 
     def build(self, corpus: dict[str, str]) -> "RagPipeline":
 
-        client = chromadb.EphemeralClient(settings=Settings(anonymized_telemetry=False))
-        try:
-            client.delete_collection("rag")
-        except Exception:
-            pass
-        col = client.create_collection(name="rag", metadata={"hnsw:space": "cosine"})
         ids = list(corpus.keys())
         texts = [corpus[i] if corpus[i] else " " for i in ids]
-        embs = self.embedder.encode(texts)
-        batch = 256
-        for i in range(0, len(ids), batch):
-            col.add(ids=ids[i:i + batch], documents=texts[i:i + batch], embeddings=embs[i:i + batch])
-        self.collection = col
+        embs = np.asarray(self.embedder.encode(texts), dtype=np.float32)
+        self._docs = texts
+        self._emb = self._l2_normalize(embs) if len(texts) else None
         return self
 
     def retrieve(self, question: str, k: int | None = None) -> list[str]:
         k = k or self.top_k
-        if self.collection is None:
+        if self._emb is None:
             raise RuntimeError("RagPipeline.build() must be called before retrieve().")
-        n = min(k, max(1, self.collection.count()))
-        qe = self.embedder.encode([question])[0]
-        res = self.collection.query(query_embeddings=[qe], n_results=n, include=["documents"])
-        docs = res.get("documents", [[]])
-        return docs[0] if docs else []
+        n = min(k, len(self._docs))
+        if n <= 0:
+            return []
+        qe = np.asarray(self.embedder.encode([question])[0], dtype=np.float32)
+        qe = self._l2_normalize(qe)
+        sims = self._emb @ qe
+        top = np.argsort(-sims)[:n]
+        return [self._docs[i] for i in top]
 
     def answer(self, question: str, k: int | None = None) -> tuple[str, list[str]]:
         docs = self.retrieve(question, k=k)
